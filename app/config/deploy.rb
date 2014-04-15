@@ -1,7 +1,7 @@
-set :application, "tags.hippl.net"
-set :domain,      "tags.hippl.net"
-set :user,         "hipplnet"
-set :deploy_to,   "/var/www/hipplnet/data/www/capy"
+set :application, "mentonol.com"
+set :domain,      "mentonol.com"
+set :user,        "mentonol"
+set :deploy_to,   "/var/www/mentonol/data/www/capy"
 set :app_path,    "app"
 set :shared_files,      ["app/config/parameters.yml"]
 set :web_path, "web"
@@ -13,7 +13,7 @@ set :ssh_options, { :forward_agent => true, :port => 6277 }
 set :branch, "master"
 set :copy_exclude, [".git", "spec"]
 
-set :repository,  "https://github.com/kokcito13/tags"
+set :repository,  "https://github.com/kokcito13/mentonol"
 set :scm,         :git
 
 set :model_manager, "doctrine"
