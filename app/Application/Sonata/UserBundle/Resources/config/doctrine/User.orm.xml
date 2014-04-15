@@ -9,37 +9,6 @@
         <id name="id" column="id" type="integer">
             <generator strategy="AUTO" />
         </id>
-        <one-to-many field="children" target-entity="User" mapped-by="parent" />
-        <one-to-many field="sites" target-entity="\Acme\DemoBundle\Entity\Site" mapped-by="owner" />
-        <one-to-many field="tasks" target-entity="\Acme\ManagerBundle\Entity\Task" mapped-by="owner" />
-        <many-to-one field="parent" target-entity="User" inversed-by="children" />
-
-        <many-to-many field="sites_for_km" inversed-by="keyManagers" target-entity="\Acme\DemoBundle\Entity\Site">
-            <cascade>
-                <cascade-all/>
-            </cascade>
-            <join-table name="user_key_manager_sites">
-                <join-columns>
-                    <join-column name="user_id" referenced-column-name="id" on-delete="CASCADE" on-update="CASCADE"/>
-                </join-columns>
-                <inverse-join-columns>
-                    <join-column name="site_id" referenced-column-name="id" on-delete="CASCADE" on-update="CASCADE"/>
-                </inverse-join-columns>
-            </join-table>
-        </many-to-many>
-        <many-to-many field="sites_for_editor" inversed-by="editors" target-entity="\Acme\DemoBundle\Entity\Site">
-            <cascade>
-                <cascade-all/>
-            </cascade>
-            <join-table name="user_editor_sites">
-                <join-columns>
-                    <join-column name="user_id" referenced-column-name="id" on-delete="CASCADE" on-update="CASCADE"/>
-                </join-columns>
-                <inverse-join-columns>
-                    <join-column name="site_id" referenced-column-name="id" on-delete="CASCADE" on-update="CASCADE"/>
-                </inverse-join-columns>
-            </join-table>
-        </many-to-many>
     </entity>
 
 </doctrine-mapping>

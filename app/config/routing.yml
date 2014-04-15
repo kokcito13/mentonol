@@ -1,8 +1,3 @@
-acme_manager:
-    resource: "@AcmeManagerBundle/Controller/"
-    type:     annotation
-    prefix:   /manager
-
 admin:
     resource: '@SonataAdminBundle/Resources/config/routing/sonata_admin.xml'
     prefix: /admin
@@ -47,6 +42,3 @@ soanata_user:
 
 _acme_demo:
     resource: "@AcmeDemoBundle/Resources/config/routing.yml"
-
-_acme_manager:
-    resource: "@AcmeManagerBundle/Resources/config/routing.yml"

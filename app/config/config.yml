@@ -102,7 +102,7 @@ fos_user:
         group_class: Application\Sonata\UserBundle\Entity\Group
 
 sonata_admin:
-    title:      name
+    title:      Mentonol.com
     title_logo: /path/to/logo.png
 
     dashboard:
@@ -114,14 +114,11 @@ services:
     link.geter:
         class: Acme\DemoBundle\Service\Link
         arguments: [ @doctrine.orm.entity_manager ]
-#    sonata.admin.project:
-#        class: Acme\DemoBundle\Admin\ProjectAdmin
-#        tags:
-#            - { name: sonata.admin, manager_type: orm, group: "Content", label: "Project" }
-#        arguments:
-#            - ~
-#            - Acme\DemoBundle\Entity\Project
-#            - ~
-#        calls:
-#            - [ setTranslationDomain, [AcmeDemoBundle]]
-#            - [ setTemplate, [edit, AcmeDemoBundle:ProjectAdmin:edit.html.twig]]
+    sonata.admin.project:
+        class: Acme\DemoBundle\Admin\ProjectAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Content", label: "Project" }
+        arguments:
+            - ~
+            - Acme\DemoBundle\Entity\Project
+            - ~

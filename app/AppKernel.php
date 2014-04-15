@@ -32,7 +32,6 @@ class AppKernel extends Kernel
 
             new Application\Sonata\UserBundle\ApplicationSonataUserBundle(),
             new Acme\DemoBundle\AcmeDemoBundle(),
-            new Acme\ManagerBundle\AcmeManagerBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

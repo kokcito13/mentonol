@@ -39,48 +39,10 @@ class Project
      */
     private $updatedAt;
 
-    /**
-     * @ORM\OneToMany(targetEntity="Url", mappedBy="project")
-     */
-    private $urls;
-
-    /**
-     * @ORM\OneToMany(targetEntity="Link", mappedBy="project")
-     */
-    private $links;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="status", type="smallint")
-     */
-    private $status;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="user_id", type="integer")
-     */
-    private $userId;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="sitemap", type="text", nullable=true)
-     */
-    private $sitemap;
-
-    const STATUS_ACTIVE = 1;
-    const STATUS_DELETE = 2;
 
     public function __construct()
     {
         $this->updatedAt = new \DateTime('now');
-        $this->file = json_encode(array());
-        $this->urls = new ArrayCollection();
-        $this->links = new ArrayCollection();
-
-        $this->status = self::STATUS_ACTIVE;
     }
 
     /**
