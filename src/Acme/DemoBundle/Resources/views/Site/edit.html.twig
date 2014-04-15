@@ -1,0 +1,50 @@
+{% extends '::admin_base.html.twig' %}
+
+{% block body -%}
+    <style>
+        input[type=text], .selectpicker {
+            width: 250px;
+        }
+        .alert {
+            padding: 0px;
+            border: 0px;
+        }
+    </style>
+    <h2 class="sub-header">Редактирование сайта - {{ entity.name }}</h2>
+    {{ form_start(edit_form) }}
+        <div class="table-responsive">
+            {{ form_errors(edit_form) }}
+            <table class="table table-striped">
+                <tbody>
+                <tr>
+                    <td>{{ form_label(edit_form.name) }}</td>
+                    <td>
+                        {{ form_widget(edit_form.name, {'attr': {'class': 'form-control'}}) }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>{{ form_label(edit_form.keyManagers) }}</td>
+                    <td>
+                        {{ form_widget(edit_form.keyManagers, {'attr': {'class': 'selectpicker'}}) }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>{{ form_label(edit_form.editors) }}</td>
+                    <td>
+                        {{ form_widget(edit_form.editors, {'attr': {'class': 'selectpicker'}}) }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        {{ form_widget(edit_form.submit, {'attr': {'class': 'btn btn-success'}}) }}
+                    </td>
+                    <td>
+                        <a class="btn btn-default" href="{{ path('boss_site') }}">К списку</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    {{ form_end(edit_form) }}
+    </div>
+{% endblock %}

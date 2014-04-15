@@ -1,0 +1,29 @@
+{% extends '::admin_base.html.twig' %}
+
+{% block body -%}
+    <h2 class="sub-header">Категории</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Название</th>
+                <th>Создано в</th>
+                <th>
+                    <a class="btn btn-primary" href="{{ path('boss_category_edit', { 'site_id': site_id, 'id': 0 }) }}"><span class="glyphicon glyphicon-plus"></span></a>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for entity in entities %}
+                <tr>
+                    <td>{{ entity.name }}</td>
+                    <td>{% if entity.createdAt %}{{ entity.createdAt|date('d.m.Y') }}{% endif %}</td>
+                    <td>
+                        <a class="btn btn-default" href="{{ path('boss_category_edit', { 'site_id': site_id, 'id': entity.id }) }}"><span class="glyphicon glyphicon-pencil"></span></a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

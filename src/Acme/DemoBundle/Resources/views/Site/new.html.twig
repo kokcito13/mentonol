@@ -1,0 +1,55 @@
+{% extends '::admin_base.html.twig' %}
+
+{% block body -%}
+    <style>
+        input[type=text], .selectpicker {
+            width: 250px;
+        }
+        .alert {
+            padding: 0px;
+            border: 0px;
+        }
+    </style>
+    <h2 class="sub-header">ДОбавление нового сайта</h2>
+    {{ form_start(form) }}
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <tbody>
+            <tr>
+                <td>{{ form_label(form.name) }}</td>
+                <td>
+                    {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+                </td>
+            </tr>
+            <tr>
+                <td>{{ form_label(form.keyManagers) }}</td>
+                <td>
+                    {{ form_widget(form.keyManagers, {'attr': {'class': 'selectpicker'}}) }}
+                </td>
+            </tr>
+            <tr>
+                <td>{{ form_label(form.editors) }}</td>
+                <td>
+                    {{ form_widget(form.editors, {'attr': {'class': 'selectpicker'}}) }}
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <div class="alert alert-danger">{{ form_errors(form.keyManagers) }}{{ form_errors(form.editors) }}</div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    {{ form_widget(form.submit, {'attr': {'class': 'btn btn-success'}}) }}
+                </td>
+                <td>
+                    <a class="btn btn-default" href="{{ path('boss_site') }}">К списку</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    {{ form_end(form) }}
+    </div>
+{% endblock %}

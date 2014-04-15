@@ -1,0 +1,33 @@
+{% extends '::admin_base.html.twig' %}
+
+{% block body -%}
+    <h2 class="sub-header">{{ role }}</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>№</th>
+                <th>Username</th>
+                <th>E-mail</th>
+                <th>Status</th>
+                <th>Послед. автр.</th>
+                <th><a class="btn btn-primary" href="{{ path('boss_key_manager_edit', { id: 0, type: type }) }}"><span class="glyphicon glyphicon-plus"></span></a></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for entity in users %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ entity.username }}</td>
+                    <td>{{ entity.email }}%</td>
+                    <td>{% if entity.enabled == 1 %}активен{% else %}не активен{% endif %}</td>
+                    <td>{% if entity.lastLogin is not null %}{{ entity.lastLogin|date('d.m.Y H:i') }}{% else %}not yet{% endif %}</td>
+                    <td>
+                        <a class="btn btn-default" href="{{ path('boss_key_manager_edit', { 'id': entity.id, type: type }) }}"><span class="glyphicon glyphicon-pencil"></span></a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>File</h1>
+
+    <table class="record_properties">
+        <tbody>
+            {% for item in entities %}
+                <tr>
+                    <td>{{ item.urlIn }}|{{ item.name }}|{{ item.url }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

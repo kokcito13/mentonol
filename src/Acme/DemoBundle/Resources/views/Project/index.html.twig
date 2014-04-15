@@ -1,0 +1,45 @@
+{% extends '::admin_base.html.twig' %}
+
+{% block body -%}
+    <h2 class="sub-header">Проекты</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Название</th>
+                <th>Статус</th>
+                <th>Обновлено</th>
+                <th>В тексте</th>
+                <th>После текста</th>
+                <th><a class="btn btn-primary" href="{{ path('admin_project_new') }}"><span class="glyphicon glyphicon-plus"></span></a></th>
+                <th>Обновить</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for entity in entities %}
+                    <tr>
+                        <td><a href="{{ path('admin_project_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                        <td>{{ entity.projectName }}</td>
+                        <td style="color: green; font-weight: bold;">{{ entity.getPercentStatus() }}%</td>
+                        <td>{% if entity.updatedAt %}{{ entity.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                        <td>
+                            <a class="btn btn-default" href="{{ path('admin_project_file', { 'id': entity.id }) }}"><span class="glyphicon glyphicon-list-alt"></span></a>
+                        </td>
+                        <td>
+                            <a class="btn btn-default" href="{{ path('admin_project_file_after_text', { 'id': entity.id }) }}"><span class="glyphicon glyphicon-indent-right"></span></a>
+                        </td>
+                        <td>
+                            <a class="btn btn-default" href="{{ path('admin_project_show', { 'id': entity.id }) }}"><span class="glyphicon glyphicon-eye-open"></span></a>
+                        </td>
+                        <td>
+                            {% if entity.sitemap is not null %}
+                                <a class="btn btn-info" href="{{ path('admin_project_refresh', { 'id': entity.id }) }}"><span class="glyphicon glyphicon-refresh"></span></a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
