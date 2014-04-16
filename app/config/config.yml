@@ -111,14 +111,11 @@ sonata_admin:
             - { position: left, type: sonata.admin.block.admin_list }
 
 services:
-    link.geter:
-        class: Acme\DemoBundle\Service\Link
-        arguments: [ @doctrine.orm.entity_manager ]
     sonata.admin.project:
         class: Acme\DemoBundle\Admin\ProjectAdmin
         tags:
             - { name: sonata.admin, manager_type: orm, group: "Content", label: "Project" }
         arguments:
             - ~
-            - Acme\DemoBundle\Entity\Project
+            - Acme\DemoBundle\Entity\Category
             - ~

@@ -16,9 +16,9 @@ class ProjectAdmin extends Admin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('project_name', 'text', array('label' => 'Post Title'))
-//            ->add('author', 'entity', array('class' => 'Acme\DemoBundle\Entity\User'))
-//            ->add('urls', null, array('associated_tostring' => 'getUrls'))
+            ->add('name', 'text', array('label' => 'Name'))
+            ->add('url', 'text', array('label' => 'Url'))
+            ->add('parent', 'entity', array('class' => 'Acme\DemoBundle\Entity\Category', 'required'=> false))
         ;
     }
 
@@ -26,8 +26,8 @@ class ProjectAdmin extends Admin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('projectName')
-//            ->add('author')
+            ->add('name')
+            ->add('url')
         ;
     }
 
@@ -35,9 +35,8 @@ class ProjectAdmin extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->addIdentifier('projectName')
-//            ->add('slug')
-//            ->add('author')
+            ->addIdentifier('name')
+            ->addIdentifier('url')
         ;
     }
 }

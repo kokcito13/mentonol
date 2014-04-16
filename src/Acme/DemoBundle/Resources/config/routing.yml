@@ -10,20 +10,12 @@ _demo_secured:
     resource: "@AcmeDemoBundle/Controller/SecuredController.php"
     type:     annotation
 
-_demo_project:
-    resource: "@AcmeDemoBundle/Controller/ProjectController.php"
-    type:     annotation
-
 _demo:
     resource: "@AcmeDemoBundle/Controller/DemoController.php"
     type:     annotation
 
 _workers:
     resource: "@AcmeDemoBundle/Controller/WorkersController.php"
-    type:     annotation
-
-_sites:
-    resource: "@AcmeDemoBundle/Controller/SiteController.php"
     type:     annotation
 
 _categories:
