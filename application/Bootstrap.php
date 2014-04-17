@@ -58,14 +58,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         }
         $view->siteSetings = Application_Model_Kernel_SiteSetings::getBy();
 
-        $view->currentCityConten = false;
-        $view->currentCity = Kernel_City::findCityFromUrl();
-        if ($view->currentCity) {
-            $view->currentCityContent = $view->currentCity->getContent()->getFields();
-        }
-
-        $view->currentLang = Kernel_Language::getCurrent();
-
         $viewRenderer = Zend_Controller_Action_HelperBroker::getStaticHelper('ViewRenderer');
         $viewRenderer->setView($view);
     }

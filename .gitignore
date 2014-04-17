@@ -1,6 +1,7 @@
 library/*
 library
 application/configs/application.ini
+www/static/default/uploads/images/*
 
 .idea/*
 .idea
