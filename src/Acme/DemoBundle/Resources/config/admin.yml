@@ -1,9 +1,0 @@
-services:
-    main.news.admin.news:
-        class: Acme\DemoBundle\Admin\ProjectAdmin
-        tags:
-            - { name: sonata.admin, manager_type: orm, group: "Новости", label: "Новости" }
-        arguments:
-            - ~
-            - Acme\DemoBundle\Entity\Category
-            - SonataAdminBundle:CRUD
