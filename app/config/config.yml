@@ -111,10 +111,10 @@ sonata_admin:
             - { position: left, type: sonata.admin.block.admin_list }
 
 services:
-    sonata.admin.project:
-        class: Acme\DemoBundle\Admin\ProjectAdmin
+    sonata.admin.category:
+        class: Acme\DemoBundle\Admin\CategoryAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: "Content", label: "Project" }
+            - { name: sonata.admin, manager_type: orm, group: "Article", label: "Category" }
         arguments:
             - ~
             - Acme\DemoBundle\Entity\Category

@@ -7,10 +7,10 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 
-class ProjectAdmin extends Admin
+class CategoryAdmin extends Admin
 {
-    protected $baseRouteName = 'projects';
-    protected $baseRoutePattern = '/projects';
+    protected $baseRouteName = 'category';
+    protected $baseRoutePattern = '/category';
 
     // Fields to be shown on create/edit forms
     protected function configureFormFields(FormMapper $formMapper)
@@ -28,6 +28,7 @@ class ProjectAdmin extends Admin
         $datagridMapper
             ->add('name')
             ->add('url')
+            ->add('parent')
         ;
     }
 
@@ -37,6 +38,7 @@ class ProjectAdmin extends Admin
         $listMapper
             ->addIdentifier('name')
             ->addIdentifier('url')
+            ->addIdentifier('parent')
         ;
     }
 }
