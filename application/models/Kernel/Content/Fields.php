@@ -226,4 +226,19 @@ class Application_Model_Kernel_Content_Fields
             }
         }
     }
+
+    public static function setCMwithFields($postContent)
+    {
+        $i = 0;
+        $content = array();
+        $langs = Kernel_Language::getAll();
+        foreach ($langs as $lang) {
+            $content[$i] = new Application_Model_Kernel_Content_Language(null, $lang->getId(), null);
+            foreach ($postContent[$lang->getId()] as $k => $v)
+                $content[$i]->setFields($k, $v);
+            $i++;
+        }
+
+        return  new Application_Model_Kernel_Content_Manager(null, $content);
+    }
 }
