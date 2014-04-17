@@ -129,7 +129,6 @@ class Application_Model_Kernel_Block
 
     public static function getList($content = false, $page = false, $countOnPage = false, $limit = false)
     {
-        $return = new stdClass();
         $db     = Zend_Registry::get('db');
         $select = $db->select()->from('blocks');
         if ($content) {
@@ -141,11 +140,12 @@ class Application_Model_Kernel_Block
         }
 
         $cachemanager = Zend_Registry::get('cachemanager');
-        $cache = $cachemanager->getCache('blocklist');
+        $cache        = $cachemanager->getCache('blocklist');
         if (($return = $cache->load(md5($select->assemble() . 'page=' . (int)$page . 'onPage=' . (int)$countOnPage))) !== false) {
 
             return $return;
         } else {
+            $return = new stdClass();
             if ($page !== false) {
                 $paginator = Zend_Paginator::factory($select);
                 $paginator->setItemCountPerPage($countOnPage);

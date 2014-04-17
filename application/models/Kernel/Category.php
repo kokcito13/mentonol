@@ -3,16 +3,21 @@
 class Application_Model_Kernel_Category extends Application_Model_Kernel_Page
 {
     private $id;
+    private $parent_id = null;
+
+
     const _tableName = 'category';
 
     public function __construct(
         $id,
         $idPage, $idRoute, $idContentPack,
-        $pageEditDate, $pageStatus, $position
+        $pageEditDate, $pageStatus, $position,
+        $parentId = null
     )
     {
-        parent::__construct($idPage, $idRoute, $idContentPack, $pageEditDate, $pageStatus, self::TYPE_SALON, $position);
+        parent::__construct($idPage, $idRoute, $idContentPack, $pageEditDate, $pageStatus, self::TYPE_CATEGORY, $position);
         $this->id = $id;
+        $this->parent_id = $parentId;
     }
 
     public function getId()
@@ -27,9 +32,10 @@ class Application_Model_Kernel_Category extends Application_Model_Kernel_Page
         try {
             $db->beginTransaction();
             $insert = is_null($this->_idPage);
-            $this->savePageData(); //сохраняем даные страницы
+            $this->savePageData();
             $data = array (
-                'idPage' => $this->getIdPage()
+                'idPage' => $this->getIdPage(),
+                'parent_id' => $this->parent_id
             );
             if ($insert) {
                 $db->insert(self::_tableName, $data);
@@ -82,7 +88,7 @@ class Application_Model_Kernel_Category extends Application_Model_Kernel_Page
     {
         return new self($data->id,
                         $data->idPage, $data->idRoute, $data->idContentPack,
-                        $data->pageEditDate, $data->pageStatus, $data->position);
+                        $data->pageEditDate, $data->pageStatus, $data->position, $data->parent_id);
     }
 
     public static function loadCache($id)
@@ -155,7 +161,7 @@ class Application_Model_Kernel_Category extends Application_Model_Kernel_Page
         $cache->save($this);
     }
 
-    public static function getList($order, $orderType, $content, $route, $searchName, $status, $page, $onPage, $limit, $group = true, $wher = false, $area = false, $nextorder = false)
+    public static function getList($order, $orderType, $content, $route, $searchName, $status, $page, $onPage, $limit, $group = true, $wher = false)
     {
         $return = new stdClass();
         $db     = Zend_Registry::get('db');
@@ -173,7 +179,7 @@ class Application_Model_Kernel_Category extends Application_Model_Kernel_Page
                 $select->where('fields.fieldText LIKE ?', $searchName);
             }
         }
-        $select->where('pages.pageType = ?', self::TYPE_SALON);
+        $select->where('pages.pageType = ?', self::TYPE_CATEGORY);
         if ($wher) {
             $select->where($wher);
         }
@@ -184,12 +190,7 @@ class Application_Model_Kernel_Category extends Application_Model_Kernel_Page
                 $select->order($order . ' ' . $orderType);
             }
         } else {
-            if (!$nextorder) {
-                $select->order('pages.idPage DESC');
-            }
-        }
-        if ($nextorder) {
-            $select->order($nextorder);
+            $select->order('pages.idPage DESC');
         }
         if ($status !== false)
             $select->where('pages.pageStatus = ?', $status);
@@ -227,6 +228,18 @@ class Application_Model_Kernel_Category extends Application_Model_Kernel_Page
         return $return;
     }
 
+    public function setParentId($id)
+    {
+        $this->parent_id = $id;
+
+        return $this;
+    }
+
+    public function getParentId()
+    {
+        return $this->parent_id;
+    }
+
     public function show()
     {
         $this->_pageStatus = self::STATUS_SHOW;
@@ -256,22 +269,9 @@ class Application_Model_Kernel_Category extends Application_Model_Kernel_Page
         return true;
     }
 
-
     public function setPath($data)
     {
         $path = Application_Model_Kernel_TextRedactor::makeTranslit($data->content[1]["name"]);
-        $this->getRoute()->setUrl('/' . $path . '.html');
-    }
-
-    public function updatePath()
-    {
-        $path = $this->getRoute()->getUrl();
-        $path = substr($path, 0, -5);
-
-        $this->getRoute()->setUrl($path . '_' . (int)$this->id . '.html');
-        $this->getRoute()->save();
-
-        $this->setUrlKey(mb_substr($path, 1) . '_' . (int)$this->id);
-        $this->save();
+        $this->getRoute()->setUrl('/' . $path);
     }
 }
