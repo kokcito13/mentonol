@@ -5,13 +5,37 @@
                 <img src="/static/admin/images/menu_icons/edit-writing-mode.png" alt="" width="16" height="16" /><span>Публикации</span>
             </a>
         </li>
+        <? $categoryList =  Application_Model_Kernel_Category::getList(false, false, true, false, false, false, false, false, false, true, 'parent_id is NULL'); ?>
+        <? foreach ($categoryList->data as $category): ?>
+            <? $content = $category->getContent()->getFields(); ?>
+            <li>
+                <a href="<?= $this->url(array('page'=>1, 'cat' => $category->getId()),'admin-post-index')?>">
+                    <img src="/static/admin/images/menu_icons/edit-writing-mode.png" alt="" width="16" height="16" /><span><?=$content['name']->getFieldText();?></span>
+                </a>
+            </li>
+        <? endforeach; ?>
+
+        <li>
+            <hr/>
+        </li>
+
         <li>
             <a href="<?= $this->url(array('page'=>1),'admin-category-index')?>">
-                <img src="/static/admin/images/menu_icons/edit-writing-mode.png" alt="" width="16" height="16" /><span>Категории</span>
+                <img src="/static/admin/images/menu_icons/edit-writing-mode.png" alt="" width="16" height="16" />
+                <span>Категории</span>
+            </a>
+        </li>
+        <li>
+            <a href="<?= $this->url(array(), 'admin-page-index'); ?>">
+                <img src="/static/admin/images/menu_icons/document-text.png" alt="" width="16" height="16" />
+                <span>Страницы сайта</span>
             </a>
         </li>
 
-        <li><a href="<?= $this->url(array(), 'admin-page-index'); ?>"><img src="/static/admin/images/menu_icons/document-text.png" alt="" width="16" height="16" /><span>Страницы сайта</span></a></li>
+        <li>
+            <hr/>
+        </li>
+
         <li><a href="<?= $this->url(array(), 'admin-block-index'); ?>"><img src="/static/admin/images/menu_icons/wrench-screwdriver.png" alt="" width="16" height="16" /><span>Текстовые блоки</span></a></li>
         
         <li><a href="<?= $this->url(array(), 'admin-main-page'); ?>"><img src="/static/admin/images/menu_icons/wrench-screwdriver.png" alt="" width="16" height="16" /><span>Настройка сайта</span></a></li>

@@ -69,13 +69,13 @@ else
                     <option value="0"
                             id="opt_0"
                             data-url=""
-                        >Главная</option>
+                        >Черновик</option>
                     <? foreach ($this->categoryList->data as $category): ?>
                         <? $name = Application_Model_Kernel_Content_Fields::getFieldByIdContentAndNameField($category->getContent()->getId(), 'name')->getFieldText(); ?>
                         <option value="<?=$category->getId()?>"
                                 data-url="<?=$category->getRoute()->getUrl();?>"
                                 id="opt_<?=$category->getId()?>"
-                        <? if ($this->post->getCategoryId() == $category->getId()): ?>selected="selected"<? endif; ?>
+                        <? if ($this->edit && $this->post->getCurrentCategory()->getId() == $category->getId()): ?>selected="selected"<? endif; ?>
                             ><?=$name?></option>
                     <? endforeach; ?>
                 </select>

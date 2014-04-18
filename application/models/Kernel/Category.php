@@ -278,7 +278,7 @@ class Application_Model_Kernel_Category extends Application_Model_Kernel_Page
 
     public function getParent()
     {
-        if (is_null($this->parent)) {
+        if (is_null($this->parent) && !is_null($this->parent_id)) {
             $this->parent = self::getById($this->getParentId());
         }
 

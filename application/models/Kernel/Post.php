@@ -7,14 +7,18 @@ class Application_Model_Kernel_Post extends Application_Model_Kernel_Page
     private $mainPhotoId;
     private $mainPhoto = null;
 
-    private $categoryId;
+    private $categoryId = null;
+    private $categoryId2 = null;
+    private $categoryId3 = null;
+
+    private $currentCategory = null;
 
     const _tableName = 'post';
     const ITEM_ON_PAGE = 3;
 
     public function __construct(
         $id,
-        $mainPhotoId, $category_id,
+        $mainPhotoId, $category_id, $category_id2, $category_id3,
         $idPage, $idRoute, $idContentPack,
         $pageEditDate, $pageStatus, $position
     )
@@ -24,6 +28,8 @@ class Application_Model_Kernel_Post extends Application_Model_Kernel_Page
 
         $this->mainPhotoId = $mainPhotoId;
         $this->categoryId = $category_id;
+        $this->categoryId2 = $category_id2;
+        $this->categoryId3 = $category_id3;
     }
 
     public function getId()
@@ -47,7 +53,9 @@ class Application_Model_Kernel_Post extends Application_Model_Kernel_Page
             $data = array(
                 'idPage'   => $this->getIdPage(),
                 'main_photo_id' => $this->mainPhotoId,
-                'category_id' => $this->categoryId
+                'category_id' => $this->categoryId,
+                'category_id2' => $this->categoryId2,
+                'category_id3' => $this->categoryId3
             );
             if ($insert) {
                 $db->insert(self::_tableName, $data);
@@ -100,7 +108,7 @@ class Application_Model_Kernel_Post extends Application_Model_Kernel_Page
     private static function getSelf(stdClass &$data)
     {
         return new self($data->id,
-                        $data->main_photo_id, $data->category_id,
+                        $data->main_photo_id, $data->category_id, $data->category_id2, $data->category_id3,
                         $data->idPage, $data->idRoute, $data->idContentPack,
                         $data->pageEditDate, $data->pageStatus, $data->position
                         );
@@ -116,7 +124,7 @@ class Application_Model_Kernel_Post extends Application_Model_Kernel_Page
 
     public static function getById($id)
     {
-        $id = (int)$id;
+
 //		$cachemanager = Zend_Registry::get('cachemanager');
 //		$cache = $cachemanager->getCache('department');
 //		if (($project = $cache->load($idProject)) !== false) {
@@ -130,25 +138,10 @@ class Application_Model_Kernel_Post extends Application_Model_Kernel_Page
         if (($productData = $db->fetchRow($select)) !== false) {
 //				$project->completelyCache();
             return self::getSelf($productData);
-        }
-        else {
-            throw new Exception(self::ERROR_INVALID_ID);
-        }
-//		}
-    }
-
-    public static function getByUrlKey($url)
-    {
-        $db = Zend_Registry::get('db');
-        $select = $db->select()->from(self::_tableName);
-        $select->join('pages', self::_tableName.'.idPage = pages.idPage');
-        $select->where('url_key = ?', $url);
-        $select->limit(1);
-        if (($data = $db->fetchRow($select)) !== false) {
-            return self::getSelf($data);
         } else {
             throw new Exception(self::ERROR_INVALID_ID);
         }
+//		}
     }
 
     public static function getByIdPage($idPage)
@@ -164,7 +157,7 @@ class Application_Model_Kernel_Post extends Application_Model_Kernel_Page
             return self::getSelf($productData);
         }
         else {
-            throw new Exception(self::ERROR_INVALID_ID);
+            throw new Exception(self::ERROR_INVALID_ID.' - PAGE');
         }
     }
 
@@ -326,5 +319,46 @@ class Application_Model_Kernel_Post extends Application_Model_Kernel_Page
         $this->categoryId = $id;
 
         return $this;
+    }
+
+    public function setCategory(Application_Model_Kernel_Category $category)
+    {
+        $this->categoryId = null;
+        $this->categoryId2 = null;
+        $this->categoryId3 = null;
+
+        switch ( $category->getCurrentLevel() ) {
+            case 1:
+                $this->categoryId = $category->getId();
+                break;
+            case 2:
+                $this->categoryId = $category->getParent()->getId();
+                $this->categoryId2 = $category->getId();
+                break;
+            case 3:
+                $this->categoryId = $category->getParent()->getParent()->getId();
+                $this->categoryId2 = $category->getParent()->getId();
+                $this->categoryId3 = $category->getId();
+                break;
+        }
+
+        return $this;
+    }
+
+    public function getCurrentCategory()
+    {
+        if (is_null($this->currentCategory)) {
+            $id = $this->categoryId;
+            if (!is_null($this->categoryId2)) {
+                $id = $this->categoryId2;
+                if (!is_null($this->categoryId3)) {
+                    $id = $this->categoryId3;
+                }
+            }
+
+            $this->currentCategory = Application_Model_Kernel_Category::getById($id);
+        }
+
+        return $this->currentCategory;
     }
 }

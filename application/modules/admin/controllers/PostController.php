@@ -45,7 +45,7 @@ class Admin_PostController extends Zend_Controller_Action
 
         $this->view->idPhoto1 = 0;
         $this->view->post = new Application_Model_Kernel_Post(null,
-            null, $this->view->cat,
+            null, $this->view->cat, null, null,
             null, null, null,
             time(), Application_Model_Kernel_Page_ContentPage::STATUS_SHOW, 0);
 
@@ -65,8 +65,7 @@ class Admin_PostController extends Zend_Controller_Action
                 $this->view->post->setRoute($route);
 
                 $this->view->post->setMainPhotoId($this->view->idPhoto1);
-                $this->view->post->setCategoryId($data->category);
-//                $this->view->salon->setPath($data);
+                $this->view->post->setCategory(Application_Model_Kernel_Category::getById($data->category));
                 $this->view->post->validate($data);
                 $this->view->post->save();
 
@@ -103,7 +102,9 @@ class Admin_PostController extends Zend_Controller_Action
                 $this->view->idPhoto1 = (int)$data->idPhoto1;
                 $this->view->photo1 = Application_Model_Kernel_Photo::getById($this->view->idPhoto1);
                 $this->view->post->setMainPhotoId($this->view->idPhoto1);
-                $this->view->post->setCategoryId($data->category);
+                
+                $category = Application_Model_Kernel_Category::getById($data->category);
+                $this->view->post->setCategory($category);
 
                 $this->view->post->getRoute()->setUrl($data->url_category."/".$data->url);
                 $this->view->post->validate($data);
