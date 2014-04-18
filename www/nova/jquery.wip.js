@@ -15,27 +15,27 @@ $(".style-picker .opentab").click(function() {
 
 	var dir = $('#themedir').val();
 	var skins = $('#skins').val();
-	
-$('#skins').live("click",function() 
+
+$('#skins').live("click",function()
 {
 	var skins = jQuery(this).val();
 	$("#Custom-css").attr("href", "http://themeinprogress.com/demo/nova/wp-content/themes/nova/skins/"+skins+".css");
 	$('#customstyle').html('');
-	
+
 	var substr = skins.split('_');
 	jQuery('body').removeClass('dark').removeClass('light').addClass(substr[0]);
-	
-}); 
 
-$('#patterns').live("click",function() 
+});
+
+$('#patterns').live("click",function()
 {
 	var skins = $('#skins').val();
 	var patterns = $(this).val();
-	
+
 	$("#Custom-css").attr("href", "http://themeinprogress.com/demo/nova/wp-content/themes/nova/skins/"+skins+".css");
 	$('#customstyle').append( 'body { background-image: url('+dir+patterns+') !important; background-repeat:repeat;}  ');
-	
-}); 
+
+});
 
 
 /* ===============================================

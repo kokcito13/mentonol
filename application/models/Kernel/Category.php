@@ -5,6 +5,7 @@ class Application_Model_Kernel_Category extends Application_Model_Kernel_Page
     private $id;
     private $parent_id = null;
 
+    private $parent = null;
 
     const _tableName = 'category';
 
@@ -273,5 +274,27 @@ class Application_Model_Kernel_Category extends Application_Model_Kernel_Page
     {
         $path = Application_Model_Kernel_TextRedactor::makeTranslit($data->content[1]["name"]);
         $this->getRoute()->setUrl('/' . $path);
+    }
+
+    public function getParent()
+    {
+        if (is_null($this->parent)) {
+            $this->parent = self::getById($this->getParentId());
+        }
+
+        return $this->parent;
+    }
+
+    public function getCurrentLevel()
+    {
+        $lvl = 1;
+        if (!is_null($this->getParent())) {
+            $lvl = 2;
+            if (!is_null($this->getParent()->getParent())) {
+                $lvl = 3;
+            }
+        }
+
+        return $lvl;
     }
 }

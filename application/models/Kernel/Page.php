@@ -28,7 +28,7 @@ abstract class Application_Model_Kernel_Page implements Application_Model_Kernel
 	const STATUS_NEW = 3;
 	
 	const TYPE_PAGE = 1;
-	const TYPE_SALON = 2;
+	const TYPE_POST = 2;
 	const TYPE_CATEGORY = 3;
 	
 	const ERROR_INVALID_ID = 'INVALID ID GIVEN';

@@ -1,26 +1,4 @@
 <?=$this->partial('blocks/menus/top.phtml');?>
-<script type="text/javascript" src="/static/admin/js/jquery.tablednd_0_5.js"></script>
-<script>
-function chengeStatusProject(id){
-    $.ajax({
-        type: "POST",
-        url: '/admin/product/status',
-        data: {
-            "idProduct":id
-        },
-        success: function(result) {
-//            alert(result);
-        }
-    });
-}
-</script>
-<style>
-    .activeLink{
-        border: 1px darkcyan dashed;
-        padding: 3px;
-        font-weight: bold;
-    }
-</style>
 <table class="zebra" >
     <thead> 
         <tr> 
@@ -35,16 +13,16 @@ function chengeStatusProject(id){
         </tr>
     </thead>
 <?php 
-if (count($this->salons->data)): ?>
+if (count($this->postList->data)): ?>
 	<?php $class = ''; ?>
 	<tbody>
 	<? $i = 0; ?>
-	<? foreach ($this->salons->data as $item):
+	<? foreach ($this->postList->data as $item):
 		$i++; ?>
 		  <? ($class === 'grey') ? $class = '' : $class='grey'; ?>
 		  <tr class="<?=$class; ?> id_<?=$item->getId()?>" rel="<?=$item->getIdPage()?>">
                 <td style="text-align: right;"> 
-                    <a href="<?=$this->url(array('id'=>$item->getId()), 'admin-salon-edit');?>" class="edit" style="float: left; display:block; margin-right: 10px;" title="Редактировать"><img src="/static/admin/images/edit.png" alt="Edit" width="16" height="16" /></a>
+                    <a href="<?=$this->url(array('id'=>$item->getId(), 'cat' => $this->cat), 'admin-post-edit');?>" class="edit" style="float: left; display:block; margin-right: 10px;" title="Редактировать"><img src="/static/admin/images/edit.png" alt="Edit" width="16" height="16" /></a>
 				</td>
 				<td style="padding-left:10px;">
                     <?=Application_Model_Kernel_Content_Fields::getFieldByIdContentAndNameField($item->getContent()->getId(), 'name')->getFieldText()?>
@@ -53,11 +31,6 @@ if (count($this->salons->data)): ?>
                 <td style="text-align: left; padding-left: 10px;">
                 </td>
                 <td style="text-align: left; padding-left: 10px;">
-<!--                  <input type="checkbox" onclick="chengeStatusProject(--><?//=$item->getId()?><!--)" --><?// if ($item->getProductStatus() ==2): ?><!--checked="checked" --><?// endif; ?><!--/>-->
-                    <a href="<?=$this->url(array('salon_id'=>$item->getId()), 'admin-girl-index');?>" class="edit" style="float: left; display:block; margin-right: 10px;" title="Девушки">Девушки</a>
-                    <a href="<?=$this->url(array('salon_id'=>$item->getId()), 'admin-massage-index');?>" class="edit" style="float: left; display:block; margin-right: 10px;" title="Массажи">Массажи</a>
-                    <a href="<?=$this->url(array('salon_id'=>$item->getId()), 'admin-comment-index');?>" class="edit" style="float: left; display:block; margin-right: 10px;" title="Комментарии">Комментарии</a>
-                    <? if(count($item->getNewComments()) > 0): ?><sup><b>+ <?=count($item->getNewComments());?></b></sup><? endif; ?>
                 </td>
                 <td style="text-align: right;">
                     <a href="<?=$item->getRoute()->getUrl()?>" target="_black" title="Просмотр"><img src="/static/admin/images/eye.png" alt="" width="16" height="16"></a>&nbsp;&nbsp;
@@ -73,5 +46,5 @@ if (count($this->salons->data)): ?>
 	</tbody>
 <?php endif; ?>
   </table> 
-<?=$this->paginationControl($this->salons->paginator, 'Sliding', 'blocks/paginator.phtml')?>
-<input id="statusUrl" type="hidden" value="<?=$this->url(array(),'admin-page-status')?>"/>
+<?=$this->paginationControl($this->postList->paginator, 'Sliding', 'blocks/paginator.phtml')?>
+<input id="statusUrl" type="hidden" value="<?=$this->url(array(),'admin-post-status')?>"/>
