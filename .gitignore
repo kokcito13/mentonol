@@ -1,7 +1,8 @@
 library/*
 library
 application/configs/application.ini
-www/static/default/uploads/images/*
+www/static/default/upload/images/*
+www/tmp/adminka_images/*
 
 .idea/*
 .idea
