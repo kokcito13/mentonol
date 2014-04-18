@@ -1,6 +1,6 @@
 <?php
 
-class SalonController extends Zend_Controller_Action
+class PostController extends Zend_Controller_Action
 {
 
     public function preDispatch()

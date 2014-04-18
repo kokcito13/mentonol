@@ -1,0 +1,20 @@
+<ul>
+    <? $categoryList =  Application_Model_Kernel_Category::getList(false, false, true, false, false, false, false, false, false, true, 'parent_id is NULL'); ?>
+    <? foreach ($categoryList->data as $category): ?>
+        <? $content = $category->getContent()->getFields(); ?>
+        <li>
+            <a href="<?=$category->getRoute()->getUrl();?>"><?=$content['name']->getFieldtext();?></a>
+            <? $categoryList2 = $category->getChildren(); ?>
+            <?if (!empty($categoryList2->data)): ?>
+                <br/>
+                <? foreach ($categoryList2->data as $category2): ?>
+                    <? $content2 = $category2->getContent()->getFields(); ?>
+                    <li>
+                        <a href="<?=$category2->getRoute()->getUrl();?>"><?=$content2['name']->getFieldtext();?></a>
+                        <br/>
+                    </li>
+                <? endforeach; ?>
+            <? endif;?>
+        </li>
+    <? endforeach; ?>
+</ul>

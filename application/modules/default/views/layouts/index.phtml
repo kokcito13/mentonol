@@ -12,7 +12,7 @@
     <?=$this->headScript()?>
 </head>
 <body>
-    <?php echo $this->partial('blocks/header.phtml', array (
+    <?php echo $this->partial('blocks/menu.phtml', array (
                                                            'menu' => $this->menu,
                                                            'blocks' => $this->blocks,
                                                            'siteSetings' => $this->siteSetings
@@ -21,7 +21,8 @@
 
     <?php echo $this->partial('blocks/footer.phtml', array (
                                                            'blocks'      => $this->blocks,
-                                                           'siteSetings' => $this->siteSetings
+                                                           'siteSetings' => $this->siteSetings,
+                                                           'text' => $this->text
                                                      )) ?>
 </body>
 </html>

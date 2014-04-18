@@ -6,6 +6,7 @@ class Application_Model_Kernel_Category extends Application_Model_Kernel_Page
     private $parent_id = null;
 
     private $parent = null;
+    private $children = array();
 
     const _tableName = 'category';
 
@@ -296,5 +297,14 @@ class Application_Model_Kernel_Category extends Application_Model_Kernel_Page
         }
 
         return $lvl;
+    }
+
+    public function getChildren()
+    {
+        if (empty($this->children)) {
+            $this->children = Application_Model_Kernel_Category::getList(false, false, true, true, false, false, false, false, false, true, 'parent_id = '.$this->getId());
+        }
+
+        return $this->children;
     }
 }
