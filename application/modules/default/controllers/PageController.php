@@ -21,77 +21,22 @@ class PageController extends Zend_Controller_Action
         $this->view->menu = $this->view->page->getRoute()->getUrl();
     }
 
-    public function popularAction()
-    {
-        $this->view->idPage = (int)$this->_getParam('idPage');
-        $this->view->page = Application_Model_Kernel_Page_ContentPage::getByPageId($this->view->idPage);
-        $this->view->contentPage = $this->view->page->getContent()->getFields();
-
-        $this->view->publicList = Application_Model_Kernel_Product::getList(false, false, true, true, false, Application_Model_Kernel_Page::STATUS_SHOW, false, false, false, true, ' products.productStatusPopular = 2 ');
-
-        $this->view->title = $this->view->contentPage['title']->getFieldText();
-        $this->view->keywords = $this->view->contentPage['keywords']->getFieldText();
-        $this->view->description = $this->view->contentPage['description']->getFieldText();
-
-        $this->view->headText = isset($this->view->contentPage['head'])?$this->view->contentPage['head']->getFieldText():'';
-
-        $this->view->menu = $this->view->page->getRoute()->getUrl();
-    }
-
-    public function sitemapAction()
-    {
-        $salons = Application_Model_Kernel_Salon::getList(false, false, true, true, false, 1, false, false, false)->data;
-        $cities = Application_Model_Kernel_City::getList();
-
-        $this->view->idPage = (int)$this->_getParam('idPage');
-        $this->view->page = Application_Model_Kernel_Page_ContentPage::getByPageId($this->view->idPage);
-        $this->view->contentPage = $this->view->page->getContent()->getFields();
-
-        $this->view->title = $this->view->contentPage['title']->getFieldText();
-        $this->view->keywords = $this->view->contentPage['keywords']->getFieldText();
-        $this->view->description = $this->view->contentPage['description']->getFieldText();
-
-        $this->view->cities = $cities;
-        $this->view->salons = $salons;
-    }
-
     public function sitemapxmlAction()
     {
         $this->view->layout()->disableLayout();
         $this->_helper->viewRenderer->setNoRender(true);
-        header("Content-Type: text/xml; charset=utf-8");
+        $container = new Zend_Navigation();
 
-        $city = Kernel_City::findCityFromUrl();
-        if ($city) {
-            $content = $city->getContent()->getFields();
-            $text = $content['sitemap']->getFieldText();
-        } else {
-            $settings = Application_Model_Kernel_SiteSetings::getBy();
-            $text = $settings->getSitemap();
+        $contentPages = Application_Model_Kernel_Page_ContentPage::getList(false, false, false, true, false, 1, false, false, false)->data;
+        $categoryList = Application_Model_Kernel_Category::getList(false, false, false, true, false, 1, false, false, false)->data;
+
+        $pages = array_merge($contentPages, $categoryList);
+        foreach ($pages as $page) {
+            $container->addPage(Zend_Navigation_Page::factory(array(
+                                                                   'uri' => $page->getRoute()->getUrl(),
+                                                              )));
         }
 
-        echo $text;
-
-        exit(0);
-    }
-
-    public function robotstxtAction()
-    {
-        $this->view->layout()->disableLayout();
-        $this->_helper->viewRenderer->setNoRender(true);
-        header("Content-type:text/plain");
-
-        $city = Kernel_City::findCityFromUrl();
-        if ($city) {
-            $content = $city->getContent()->getFields();
-            $text = $content['robots']->getFieldText();
-        } else {
-            $settings = Application_Model_Kernel_SiteSetings::getBy();
-            $text = $settings->getRobots();
-        }
-
-        echo $text;
-
-        exit(0);
+        echo $this->view->navigation()->sitemap($container);
     }
 }

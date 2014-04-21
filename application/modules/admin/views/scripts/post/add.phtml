@@ -82,7 +82,7 @@ else
             </td>
         </tr>
         <tr class="">
-            <td width="193" class="first">Логоти
+            <td width="193" class="first">Preview:
                 <a href="<?if ($this->idPhoto1 === 0 || empty($photoPath1) ): ?>/static/admin/images/nobg.png<? else: echo Application_Model_Kernel_Photo::getById($this->idPhoto1)->getPath('210:130'); endif ?>" target="_blank" id="previewImage1" class="preview <? if ($this->idPhoto1 === 0 || empty($photoPath1) ): ?>hide<? endif ?>" title="">
                     <img src="/static/admin/images/picture.png" alt="">
                 </a>
