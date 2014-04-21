@@ -26,7 +26,7 @@ class Admin_CategoryController extends Zend_Controller_Action
         $this->view->page = (int)$this->_getParam('page');
 
         $this->view->breadcrumbs->add('Категории', '');
-        $this->view->categoryList = Application_Model_Kernel_Category::getList(false, false, true, true, false, false, $this->view->page, 15, false, true, false);
+        $this->view->categoryList = Application_Model_Kernel_Category::getList(false, false, true, true, false, false, $this->view->page, 15, false, true, 'parent_id is NULL');
     }
 
     public function addAction()

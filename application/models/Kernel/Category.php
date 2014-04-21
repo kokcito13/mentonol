@@ -123,20 +123,6 @@ class Application_Model_Kernel_Category extends Application_Model_Kernel_Page
 //		}
     }
 
-    public static function getByUrlKey($url)
-    {
-        $db     = Zend_Registry::get('db');
-        $select = $db->select()->from(self::_tableName);
-        $select->join('pages', self::_tableName . '.idPage = pages.idPage');
-        $select->where('url_key = ?', $url);
-        $select->limit(1);
-        if (($data = $db->fetchRow($select)) !== false) {
-            return self::getSelf($data);
-        } else {
-            throw new Exception(self::ERROR_INVALID_ID);
-        }
-    }
-
     public static function getByIdPage($idPage)
     {
         $idPage = intval($idPage);
@@ -299,10 +285,20 @@ class Application_Model_Kernel_Category extends Application_Model_Kernel_Page
         return $lvl;
     }
 
+    public function setParent($parent)
+    {
+        $this->parent = $parent;
+
+        return $this;
+    }
+
     public function getChildren()
     {
         if (empty($this->children)) {
             $this->children = Application_Model_Kernel_Category::getList(false, false, true, true, false, false, false, false, false, true, 'parent_id = '.$this->getId());
+            foreach ($this->children->data as $category) {
+                $category->setParent($this);
+            }
         }
 
         return $this->children;

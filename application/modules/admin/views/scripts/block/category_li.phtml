@@ -1,0 +1,29 @@
+<? $mar = 1*$this->item->getCurrentLevel();?>
+<tr class="<?= $this->class; ?> id_<?= $this->item->getId() ?>" rel="<?= $this->item->getIdPage() ?>">
+    <td style="text-align: right;">
+        <a href="<?= $this->url(array ('id' => $this->item->getId()), 'admin-category-edit'); ?>" class="edit"
+           style="float: left; display:block; margin-right: 10px;" title="Редактировать"><img
+                src="/static/admin/images/edit.png" alt="Edit" width="16" height="16"/></a>
+    </td>
+    <td style="padding-left:<?=$mar?>0px;">
+        <? if ($mar > 1): ?>-<? endif; ?>
+        <?=Application_Model_Kernel_Content_Fields::getFieldByIdContentAndNameField($this->item->getContent()->getId(), 'name')->getFieldText()?>
+    </td>
+    <?php $StatusTitle = (!$this->item->getStatus()) ? 'Показать' : 'Скрыть'; ?>
+    <td style="text-align: left; padding-left: 10px;"></td>
+    <td style="text-align: left; padding-left: 10px;"></td>
+    <td style="text-align: right;">
+        <a href="<?= $this->item->getRoute()->getUrl() ?>" target="_black" title="Просмотр"><img
+                src="/static/admin/images/eye.png" alt="" width="16" height="16"></a>&nbsp;&nbsp;
+        <a href="javascript:changeStatus(<?= $this->item->getIdPage() ?>, 1);" class="<?= $this->item->getStatus(); ?>"
+           title="<?= $StatusTitle; ?>">
+            <img class="page_status_<?= $this->item->getIdPage() ?>"
+                 src="/static/admin/images/show_<?= $this->item->getStatus(); ?>.png" alt="" width="15"
+                 height="15">
+        </a>
+    </td>
+    <td style="text-align: left; padding-left: 10px;">
+        <a href="javascript:changeStatus(<?= $this->item->getIdPage(); ?>,2);" class="delete" title="Удалить"><img
+                src="/static/admin/images/icon_delete.gif" alt="" width="9" height="8"/></a>
+    </td>
+</tr>
