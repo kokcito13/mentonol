@@ -50,7 +50,12 @@ class Admin_CategoryController extends Zend_Controller_Action
                 $contentManager = Application_Model_Kernel_Content_Fields::setCMwithFields($data->content);
                 $this->view->category->setContentManager($contentManager);
                 $this->view->category->setRoute($route);
-                
+
+                $this->view->category->setParentId(null);
+                if ($data->parent_id) {
+                    $this->view->category->setParentId($data->parent_id);
+                }
+
                 $this->view->category->validate($data);
                 $this->view->category->save();
 

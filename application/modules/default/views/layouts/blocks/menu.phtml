@@ -7,13 +7,15 @@
             <? $categoryList2 = $category->getChildren(); ?>
             <?if (!empty($categoryList2->data)): ?>
                 <br/>
-                <? foreach ($categoryList2->data as $category2): ?>
-                    <? $content2 = $category2->getContent()->getFields(); ?>
-                    <li>
-                        <a href="<?=$category2->getRoute()->getUrl();?>"><?=$content2['name']->getFieldtext();?></a>
-                        <br/>
-                    </li>
-                <? endforeach; ?>
+                <ul>
+                    <? foreach ($categoryList2->data as $category2): ?>
+                        <? $content2 = $category2->getContent()->getFields(); ?>
+                        <li>
+                            <a href="<?=$category2->getRoute()->getUrl();?>"><?=$content2['name']->getFieldtext();?></a>
+                            <br/>
+                        </li>
+                    <? endforeach; ?>
+                </ul>
             <? endif;?>
         </li>
     <? endforeach; ?>
