@@ -14,7 +14,7 @@ class Admin_PostController extends Zend_Controller_Action
         $this->view->page = !is_null($this->_getParam('page')) ? $this->_getParam('page') : 1;
         $this->view->cat = !is_null($this->_getParam('cat')) ? $this->_getParam('cat') : 0;
 
-        $this->view->categoryList = Application_Model_Kernel_Category::getList(false, false, true, false, false, false, false, false, false, true, false);
+        $this->view->categoryList = Application_Model_Kernel_Category::getList(false, false, true, false, false, false, false, false, false, true, ' parent_id IS NOT NULL');
     }
 
     public function indexAction()
