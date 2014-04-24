@@ -1,33 +1,24 @@
 <? $this->headScript()->captureStart() ?>
 <? $this->headScript()->captureEnd() ?>
-<? $this->area = $this->salon->getArea(); ?>
-<?=$this->ShowUrlBack($this->salon);?>
-<div class="singleSalonBox">
-    <?=$this->ShowSalonHeader($this->salon);?>
-    <?=$this->ShowSalonMenu($this->salon, 'girls');?>
-    <div class="salonContent">
-        <div class="salonSidebar" style="background: url(<?=$this->salon->getPhoto4()->getPath('220:1140');?>) no-repeat center center;">
-        </div>
-        <div class="salonContentRight">
-            <h3><?=Kernel_Block::getText('Девушки салона', $this->blocks);?></h3>
-            <? foreach ($this->girls as $k=>$girl): ?>
-                <? $content = $girl->getContent()->getFields();?>
-                <div class="singleSalonModelItem" id="girl_<?=$girl->getId()?>">
-                    <p><span><?=$content['contentName']->getFieldText();?></span>, <?=$girl->getAge();?> год</p>
-                    <div id="carousel-<?=$k+1?>" class="salonModelCarouselWrap">
-                        <? $photos = $girl->getGallery()->getPhotos(); ?>
-                        <? foreach  ($photos as $photo): ?>
-                            <img src="<?=$photo->getPath('500', true);?>" alt="">
-                        <? endforeach; ?>
+<div class="left-sidebar">
+    <div class="open-post pin-article">
+        <div class="article">
+            <h1 class="title"><?=$this->contentPage['name']->getFieldText()?></h1>
+            <div class="line">
+                <div class="entry-info">
+                    <div class="entry-date"><strong>Posted on:</strong> 9 December 2013 <span class="sep">/</span></div>
+                    <div class="entry-comments"><strong>Comments:</strong> <a href="#">2 comments</a><span class="sep">/</span></div>
+                    <div class="entry-standard">
+                        <strong>Categories: <a title="View all posts in Travel" href="#">Travel</a>, <a title="View all posts in Video" href="#">Video</a></strong>
                     </div>
-                    <a id="prev-model-<?=$k+1?>" class="carouselNav prev" href="#"></a>
-                    <a id="next-model-<?=$k+1?>" class="carouselNav next" href="#"></a>
-                    <div class="loaderBox"></div>
                 </div>
-            <? endforeach; ?>
+            </div>
+            <? if ($this->post->getMainPhotoId()): ?>
+                <div class="line">
+                    <img src="<?=$this->post->getMainPhoto()->getPath('720:330');?>" width="720">
+                </div>
+            <? endif; ?>
+            <?=$this->contentPage['content']->getFieldText()?>
         </div>
-        <div class="clear"></div>
     </div>
-    <div class="salonFooter" style="background: url(<?=$this->salon->getPhoto3()->getPath('940:150');?>) no-repeat center center;"></div>
-    <?=$this->ShowSalonMenu($this->salon, 'girls');?>
 </div>

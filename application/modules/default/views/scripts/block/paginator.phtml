@@ -1,19 +1,17 @@
 <?php if ( $this->pageCount > 1 ): ?>
-    <div class="pagination">
-        <ul>
-            <?php if (isset($this->previous)): ?>
-                <li class="prev"><a href="<?= $this->url(array("page" => $this->previous)) ?>" data-page="<?=$this->previous?>"></a></li>
+    <div class="wp-pagenavi">
+        <?php if (isset($this->previous)): ?>
+            <a href="<?= $this->url(array("page" => $this->previous)) ?>" class="prev page-numbers"><<</a>
+        <?php endif; ?>
+        <?php foreach ($this->pagesInRange as $page): ?>
+            <?php if ($page != $this->current): ?>
+                <a href="<?= $this->url(array("page" => $page)) ?>" class="page-numbers"><?= $page; ?></a>
+            <?php else: ?>
+                <span class="page-numbers current"><?= $page; ?></span>
             <?php endif; ?>
-            <?php foreach ($this->pagesInRange as $page): ?>
-                <?php if ($page != $this->current): ?>
-                    <li><a href="<?= $this->url(array("page" => $page)) ?>" data-page="<?=$page?>"><?= $page; ?></a></li>
-                <?php else: ?>
-                    <li class="current"><?= $page; ?></li>
-                <?php endif; ?>
-            <?php endforeach; ?>
-            <?php if (isset($this->next)): ?>
-                <li class="next"><a href="<?= $this->url(array("page" => $this->next)) ?>" data-page="<?=$this->next?>"></a></li>
-            <?php endif; ?>
-        </ul>
+        <?php endforeach; ?>
+        <?php if (isset($this->next)): ?>
+            <a href="<?= $this->url(array("page" => $this->next)) ?>" class="next page-numbers">»</a>
+        <?php endif; ?>
     </div>
 <?php endif; ?>

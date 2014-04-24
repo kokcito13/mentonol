@@ -10,23 +10,72 @@
     <meta name="google-site-verification" content="Yvr5LTXabsjsZJsakV0HmsIQqDxk16OvXavhFbcokX0" />
     <meta name='yandex-verification' content='543232000086a5ad' />
 
-<!--    <script type="text/javascript" src="/static/default/js/jquery-1.9.1.min.js"></script>-->
+    <meta content="width=device-width, target-densityDpi=device-dpi" name="viewport" />
+    <link type="text/css" rel="stylesheet" href="/static/default/css/style.css" media="all"/>
+
+    <script type="text/javascript" src="/static/default/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/default/js/script.js"></script>
     <?=$this->headScript()?>
 </head>
 <body>
-    <?php echo $this->partial('blocks/menu.phtml', array (
-                                                           'menu' => $this->menu,
-                                                           'blocks' => $this->blocks,
-                                                           'siteSetings' => $this->siteSetings
-                                                     )) ?>
-    <?php echo $this->layout()->content ?>
+    <div id="wrapper">
+        <?php echo $this->partial('blocks/menu.phtml', array (
+                                                             'menu' => $this->menu,
+                                                             'blocks' => $this->blocks,
+                                                             'siteSetings' => $this->siteSetings
+                                                       )) ?>
+        <div id="main-container">
+            <div class="wrapper">
 
-    <?php echo $this->partial('blocks/footer.phtml', array (
-                                                           'blocks'      => $this->blocks,
-                                                           'siteSetings' => $this->siteSetings,
-                                                           'text' => $this->text
-                                                     )) ?>
+                <div class="left-sidebar">
+                    <?php echo $this->layout()->content ?>
+                </div>
+                <div class="right-sidebar">
+                    <div class="pin-article">
+                        <div class="article">
+                            <h3 class="title">Tags</h3>
+                            <div class="tagcloud">
+                                <a class="tag-link" href="#">Audio</a>
+                                <a class="tag-link" href="#">day</a>
+                                <a class="tag-link" href="#">gallery</a>
+                                <a class="tag-link" href="#">media</a>
+                                <a class="tag-link" href="#">routine</a>
+                                <a class="tag-link" href="#">travel</a>
+                            </div>
+                        </div>
+                    </div>
 
+                    <div class="pin-article">
+                        <div class="article">
+                            <h3 class="title">Archives</h3>
+                            <ul>
+                                <li><a href="#">December 2013</a></li>
+                                <li><a href="#">September 2013</a></li>
+                                <li><a href="#">August 2013</a></li>
+                                <li><a href="#">May 2013</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="pin-article">
+                        <div class="article">
+                            <h3 class="title">Recent comments</h3>
+                            <ul>
+                                <li>alexvtn on <a href="#">Video Post</a></li>
+                                <li>alexvtn on <a href="#">Video Post</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="clr"></div>
+            </div>
+        </div>
+        <?php echo $this->partial('blocks/footer.phtml', array (
+                                                               'blocks'      => $this->blocks,
+                                                               'siteSetings' => $this->siteSetings,
+                                                               'text' => $this->text
+                                                         )) ?>
+    </div>
     <!-- Yandex.Metrika counter -->
     <script type="text/javascript">
         (function (d, w, c) {

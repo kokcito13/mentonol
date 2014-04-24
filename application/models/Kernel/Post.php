@@ -172,17 +172,12 @@ class Application_Model_Kernel_Post extends Application_Model_Kernel_Page
         $cache->save($this);
     }
 
-    public static function getList($order, $orderType, $content, $route, $searchName, $status, $page, $onPage, $limit, $group = true, $wher = false, $area = false, $nextorder = false)
+    public static function getList($order, $orderType, $content, $route, $searchName, $status, $page, $onPage, $limit, $group = true, $wher = false)
     {
         $return = new stdClass();
         $db = Zend_Registry::get('db');
         $select = $db->select()->from(self::_tableName);
         $select->join('pages', 'pages.idPage = '.self::_tableName.'.idPage');
-//        $select->join('categorie_product', self::_tableName.'.id = categorie_product.id');
-//        $select->joinLeft('comments', '( '.self::_tableName.'.id = comments.idOwner AND comments.commentType = 1 )', array('countComm' => 'COUNT(comments.idOwner)'));
-
-        //ORDER BY countComm DESC
-
         if ($route) {
             $select->join('routing', 'pages.idRoute = routing.idRoute');
         }
@@ -201,18 +196,11 @@ class Application_Model_Kernel_Post extends Application_Model_Kernel_Page
         if ($order && $orderType) {
             if ($order == 'BY' && $orderType == 'RAND') {
                 $select->order(new Zend_Db_Expr('RAND()'));
-            }
-            else {
+            } else {
                 $select->order($order . ' ' . $orderType);
             }
-        }
-        else {
-            if (!$nextorder) {
-                $select->order('pages.idPage DESC');
-            }
-        }
-        if ($nextorder) {
-            $select->order($nextorder);
+        } else {
+            $select->order('pages.idPage DESC');
         }
         if ($status !== false)
             $select->where('pages.pageStatus = ?', $status);
@@ -226,8 +214,7 @@ class Application_Model_Kernel_Post extends Application_Model_Kernel_Page
             $paginator->setPageRange(5);
             $paginator->setCurrentPageNumber($page);
             $return->paginator = $paginator;
-        }
-        else {
+        } else {
             $return->paginator = $db->fetchAll($select);
         }
         $return->data = array();

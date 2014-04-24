@@ -1,2 +1,47 @@
 <? $this->headScript()->captureStart() ?>
 <? $this->headScript()->captureEnd() ?>
+<? foreach ($this->posts->data as $post): ?>
+    <? $content = $post->getContent()->getFields();?>
+    <? $category = $post->getCurrentCategory();?>
+    <? $categoryContent = $category->getContent()->getFields();?>
+    <div class="post pin-article">
+        <!--noindex-->
+        <? if ($post->getMainPhotoId()): ?>
+            <div class="pin-container">
+                <div class="overlay-image">
+                    <img class="wp-post-image" src="<?=$post->getMainPhoto()->getPath('370:158');?>">
+                    <a rel="nofollow" class="link" href="<?=$post->getRoute()->getUrl();?>"></a>
+                </div>
+            </div>
+        <? endif; ?>
+        <!--/noindex-->
+        <div class="article">
+            <div class="wrap">
+                <div class="title">
+                    <a href="<?=$post->getRoute()->getUrl();?>"><?=$content['name']->getFieldText();?></a>
+                </div>
+                <!--noindex-->
+                <div class="line">
+                    <div class="entry-info">
+                        <!--                        <div class="entry-comments"><strong>Comments:</strong> <a href="#">2 comments</a><span class="sep">/</span></div>-->
+                        <div class="entry-standard">
+                            <strong>Категории: <a rel="nofollow" title="<?=$categoryContent['name']->getFieldText();?>" href="<?=$category->getRoute()->getUrl();?>"><?=$categoryContent['name']->getFieldText();?></a></strong>
+                        </div>
+                    </div>
+                </div>
+                <p><?=Application_Model_Kernel_TextRedactor::cutText($content['content']->getFieldText(), 380)?> ...</p>
+                <!--/noindex-->
+            </div>
+            <!--noindex-->
+            <p><a rel="nofollow" title="More" href="<?=$post->getRoute()->getUrl();?>" class="button">Полностью →</a></p>
+            <!--/noindex-->
+        </div>
+    </div>
+<? endforeach; ?>
+<div class="clr"></div>
+<?= $this->paginationControl($this->posts->paginator, 'Sliding', 'block/paginator.phtml') ?>
+<div class="open-post pin-article">
+    <div class="article">
+        <?=$this->contentPage['content']->getFieldText()?>
+    </div>
+</div>

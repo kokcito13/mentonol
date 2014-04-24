@@ -8,14 +8,22 @@ class CategoryController extends Zend_Controller_Action
         $this->view->page = Application_Model_Kernel_Category::getByIdPage($this->view->idPage);
         $this->view->contentPage = $this->view->page->getContent()->getFields();
 
+        $lvlText = '';
+        if ($this->view->page->getCurrentLevel() > 1) {
+            $lvlText = $this->view->page->getCurrentLevel();
+        }
 
-        $title = $this->view->contentPage['title']->getFieldText();
-        $keywords = $this->view->contentPage['keywords']->getFieldText();
-        $description = $this->view->contentPage['description']->getFieldText();
+        $this->view->posts = Application_Model_Kernel_Post::getList('post.id', 'DESC', true,
+                                                                    true, false, false,
+                                                                    true, true, 10,
+                                                                    true, 'post.category_id'.$lvlText.' = '.$this->view->page->getId());
 
-        $this->view->title = $title;
-        $this->view->keywords = $keywords;
+        $title       = trim($this->view->contentPage['title']->getFieldText());
+        $keywords    = trim($this->view->contentPage['keywords']->getFieldText());
+        $description = trim($this->view->contentPage['description']->getFieldText());
+
+        $this->view->title       = $title;
+        $this->view->keywords    = $keywords;
         $this->view->description = $description;
-        $this->view->text = $this->view->contentPage['content']->getFieldText();
     }
 }

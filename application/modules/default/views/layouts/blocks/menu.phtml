@@ -1,22 +1,32 @@
-<ul>
-    <? $categoryList =  Application_Model_Kernel_Category::getList(false, false, true, false, false, false, false, false, false, true, 'parent_id is NULL'); ?>
-    <? foreach ($categoryList->data as $category): ?>
-        <? $content = $category->getContent()->getFields(); ?>
-        <li>
-            <a href="<?=$category->getRoute()->getUrl();?>"><?=$content['name']->getFieldtext();?></a>
-            <? $categoryList2 = $category->getChildren(); ?>
-            <?if (!empty($categoryList2->data)): ?>
-                <br/>
-                <ul>
-                    <? foreach ($categoryList2->data as $category2): ?>
-                        <? $content2 = $category2->getContent()->getFields(); ?>
-                        <li>
-                            <a href="<?=$category2->getRoute()->getUrl();?>"><?=$content2['name']->getFieldtext();?></a>
-                            <br/>
-                        </li>
-                    <? endforeach; ?>
-                </ul>
-            <? endif;?>
-        </li>
-    <? endforeach; ?>
-</ul>
+<? $categoryList =  Application_Model_Kernel_Category::getList(false, false, true, false, false, false, false, false, false, true, 'parent_id is NULL'); ?>
+<div id="header">
+    <div class="container">
+        <div id="logo">
+            <a title="Nova" href="/">Mentonol.com</a>
+        </div>
+        <div id="mainmenu">
+            <ul class="menu">
+                <? foreach ($categoryList->data as $category): ?>
+                    <? $content = $category->getContent()->getFields(); ?>
+                    <? $categoryList2 = $category->getChildren(); ?>
+                    <li class="menu-item">
+                        <?if (!empty($categoryList2->data)): ?>
+                            <a><?=$content['name']->getFieldtext();?><span class="sf-sub-indicator"><i class="icon-angle-down"></i></span></a>
+                            <ul class="sub-menu">
+                                <? foreach ($categoryList2->data as $category2): ?>
+                                    <? $content2 = $category2->getContent()->getFields(); ?>
+                                    <li>
+                                        <a href="<?=$category2->getRoute()->getUrl();?>"><?=$content2['name']->getFieldtext();?></a>
+                                    </li>
+                                <? endforeach; ?>
+                            </ul>
+                        <? else: ?>
+                        <a href="<?=$category->getRoute()->getUrl();?>"><?=$content['name']->getFieldtext();?></a>
+                        <? endif;?>
+                    </li>
+                <? endforeach; ?>
+
+            </ul>
+        </div>
+    </div>
+</div>
