@@ -9,7 +9,7 @@
         <? if ($post->getMainPhotoId()): ?>
             <div class="pin-container">
                 <div class="overlay-image">
-                    <img class="wp-post-image" src="<?=$post->getMainPhoto()->getPath('370:158');?>">
+                    <img class="wp-post-image" src="<?=$post->getMainPhoto()->getPhotoImage();?>" width="370">
                     <a rel="nofollow" class="link" href="<?=$post->getRoute()->getUrl();?>"></a>
                 </div>
             </div>

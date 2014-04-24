@@ -165,6 +165,11 @@ class Application_Model_Kernel_Photo
         return $this->_photoPath;
     }
 
+    public function getPhotoImage()
+    {
+        return self::SAVE_PATH . $this->_photoPath;;
+    }
+
     public function setPhotoPath($path)
     {
         $this->_photoPath = $path;

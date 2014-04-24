@@ -15,7 +15,7 @@
             </div>
             <? if ($this->post->getMainPhotoId()): ?>
                 <div class="line">
-                    <img src="<?=$this->post->getMainPhoto()->getPath('720:330');?>" width="720">
+                    <img src="<?=$this->post->getMainPhoto()->getPhotoImage();?>" width="720">
                 </div>
             <? endif; ?>
             <?=$this->contentPage['content']->getFieldText()?>
