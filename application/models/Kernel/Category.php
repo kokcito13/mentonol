@@ -303,4 +303,9 @@ class Application_Model_Kernel_Category extends Application_Model_Kernel_Page
 
         return $this->children;
     }
+
+    public static function getMainCategoryList()
+    {
+        return self::getList(false, false, true, false, false, false, false, false, false, true, 'parent_id is NULL');
+    }
 }
