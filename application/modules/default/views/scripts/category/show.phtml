@@ -40,6 +40,7 @@
 <? endforeach; ?>
 <div class="clr"></div>
 <?= $this->paginationControl($this->posts->paginator, 'Sliding', 'block/paginator.phtml') ?>
+<div class="clr"></div>
 <div class="open-post pin-article">
     <div class="article">
         <?=$this->contentPage['content']->getFieldText()?>
