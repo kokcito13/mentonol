@@ -39,7 +39,7 @@
                                 <div class="title">Рубрики:</div>
                                 <div class="tagcloud">
                                     <? foreach ($children as $cat): ?>
-                                        <? $catContent = $cat->getContent()->gitFields(); ?>
+                                        <? $catContent = $cat->getContent()->getFields(); ?>
                                         <a rel="nofollow" class="tag-link" href="<?=$cat->getRoute()->geturl();?>"><?=$catContent['name']->getFieldtext();?></a>
                                     <? endforeach; ?>
                                 </div>
