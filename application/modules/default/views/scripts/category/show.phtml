@@ -1,5 +1,6 @@
 <? $this->headScript()->captureStart() ?>
 <? $this->headScript()->captureEnd() ?>
+<? $this->children =  $this->page->getChildren();?>
 <? foreach ($this->posts->data as $post): ?>
     <? $content = $post->getContent()->getFields();?>
     <? $category = $post->getCurrentCategory();?>

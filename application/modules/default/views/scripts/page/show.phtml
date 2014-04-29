@@ -2,6 +2,7 @@
 <? $this->headScript()->captureEnd() ?>
 <div class="open-post pin-article">
     <div class="article">
+        <h1><?=$this->contentPage['name']->getFieldText()?></h1>
         <?=$this->contentPage['content']->getFieldText()?>
     </div>
 </div>

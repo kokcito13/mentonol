@@ -515,7 +515,7 @@ ol ol {
     clear: both;
 }
 .overlay-image img{
-    height: 158px;
+    /*height: 158px;*/
     width: 370px;
     z-index: 999;
 }

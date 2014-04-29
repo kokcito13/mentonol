@@ -31,20 +31,22 @@
                     <?php echo $this->layout()->content ?>
                 </div>
                 <div class="right-sidebar">
-                    <div class="pin-article">
-                        <div class="article">
-                            <div class="title">Tags</div>
-                            <div class="tagcloud">
-                                <a class="tag-link" href="#">Audio</a>
-                                <a class="tag-link" href="#">day</a>
-                                <a class="tag-link" href="#">gallery</a>
-                                <a class="tag-link" href="#">media</a>
-                                <a class="tag-link" href="#">routine</a>
-                                <a class="tag-link" href="#">travel</a>
+                    <? $children = $this->children?$this->children:array();?>
+                    <? if (!empty($children)):  ?>
+                        <!--noindex-->
+                        <div class="pin-article">
+                            <div class="article">
+                                <div class="title">Рубрики:</div>
+                                <div class="tagcloud">
+                                    <? foreach ($children as $cat): ?>
+                                        <? $catContent = $cat->getContent()->gitFields(); ?>
+                                        <a rel="nofollow" class="tag-link" href="<?=$cat->getRoute()->geturl();?>"><?=$catContent['name']->getFieldtext();?></a>
+                                    <? endforeach; ?>
+                                </div>
                             </div>
                         </div>
-                    </div>
-
+                        <!--/noindex-->
+                    <? endif; ?>
                     <div class="pin-article">
                         <div class="article">
                             <div class="title">Archives</div>
