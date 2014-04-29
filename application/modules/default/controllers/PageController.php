@@ -25,7 +25,7 @@ class PageController extends Zend_Controller_Action
 
         $contentPages = Application_Model_Kernel_Page_ContentPage::getList(false, false, false, true, false, 1, false, false, false)->data;
         $categoryList = Application_Model_Kernel_Category::getList(false, false, false, true, false, 1, false, false, false)->data;
-        $posts = Application_Model_Kernel_Post::getList(false, false, false, true, false, 1, false, false, false);
+        $posts = Application_Model_Kernel_Post::getList(false, false, false, true, false, 1, false, false, false)->data;
 
         $pages = array_merge($contentPages, $categoryList, $posts);
         foreach ($pages as $page) {
