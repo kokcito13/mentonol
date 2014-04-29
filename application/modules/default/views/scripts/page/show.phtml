@@ -1,6 +1,7 @@
 <? $this->headScript()->captureStart() ?>
 <? $this->headScript()->captureEnd() ?>
-<? $this->itemContent = $this->contentPage; ?>
-<div class="col-md-12">
-    <?=$this->contentPage['content']->getFieldText()?>
+<div class="open-post pin-article">
+    <div class="article">
+        <?=$this->contentPage['content']->getFieldText()?>
+    </div>
 </div>

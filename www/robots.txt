@@ -1,18 +1,24 @@
 User-agent: Yandex
 Crawl-delay: 10
+Disallow: /contacts
+Disallow: /advertising
 Disallow: */page/*
 Allow: /static/default
-Host: wifi-hardware.com
+Host: mentonol.com
 
 User-agent: Mediapartners-Google
 Disallow:
 
 User-agent: Googlebot
+Disallow: /contacts
+Disallow: /advertising
 Disallow: */page/*
 Allow: /static/default
 
 User-agent: *
 Crawl-delay: 10
+Disallow: /contacts
+Disallow: /advertising
 Disallow: */page/*
 Allow: /static/default
 
