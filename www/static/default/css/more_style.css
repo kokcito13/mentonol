@@ -1,0 +1,14 @@
+div.entry-standard a {
+    text-decoration: underline;
+    margin-right: 5px;
+}
+div.last_posts img {
+    float:left;
+    width: 50px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding-right: 5px;
+}
+div.last_posts li {
+    height: 55px
+}

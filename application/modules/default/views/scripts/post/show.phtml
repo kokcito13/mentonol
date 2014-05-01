@@ -1,15 +1,30 @@
 <? $this->headScript()->captureStart() ?>
 <? $this->headScript()->captureEnd() ?>
+<? $this->children =  $this->category->getChildren()->data;?>
+<? $this->currentPost = $this->post; ?>
 <div class="left-sidebar">
     <div class="open-post pin-article">
         <div class="article">
             <h1 class="title"><?=$this->contentPage['name']->getFieldText()?></h1>
             <div class="line">
                 <div class="entry-info">
-                    <div class="entry-date"><strong>Posted on:</strong> 9 December 2013 <span class="sep">/</span></div>
-                    <div class="entry-comments"><strong>Comments:</strong> <a href="#">2 comments</a><span class="sep">/</span></div>
+                    <div class="entry-date">
+                        <a href="/">
+                            <img src="/static/default/images/home_w.png" width="15px;"/>
+                        </a>
+                        <span class="sep">/</span>
+                    </div>
+                    <? foreach ($this->categoryList as $k => $cat): ?>
+                        <? $contentCat = $cat->getContent()->getFields();?>
+                        <div class="entry-standard">
+                            <a href="<?=$cat->getRoute()->getUrl();?>">
+                                <?=$contentCat['name']->getFieldText();?>
+                            </a>
+                        </div>
+                        <span class="sep">/</span>
+                    <? endforeach; ?>
                     <div class="entry-standard">
-                        <strong>Categories: <a title="View all posts in Travel" href="#">Travel</a>, <a title="View all posts in Video" href="#">Video</a></strong>
+                        <span>...</span>
                     </div>
                 </div>
             </div>
@@ -19,6 +34,20 @@
                 </div>
             <? endif; ?>
             <?=$this->contentPage['content']->getFieldText()?>
+            <hr/>
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+                /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                var disqus_shortname = 'mentonolcom'; // required: replace example with your forum shortname
+
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
         </div>
     </div>
 </div>

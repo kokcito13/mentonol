@@ -25,5 +25,23 @@ class PostController extends Zend_Controller_Action
         $this->view->title = $title;
         $this->view->keywords = $keywords;
         $this->view->description = $description;
+
+        $category = $this->view->post->getCurrentCategory();
+
+        /** @var Application_Model_Kernel_Category $category */
+        $this->view->category = $category;
+        if ($this->view->category->getCurrentLevel() == 3) {
+            $this->view->category = $this->view->category->getParent();
+        }
+
+        $categoryList = array( $category );
+        if (!is_null($category->getParent())) {
+            $categoryList[] = $category->getParent();
+            if (!is_null($category->getParent()->getParent())) {
+                $categoryList[] = $category->getParent()->getParent();
+            }
+        }
+
+        $this->view->categoryList = array_reverse($categoryList);
     }
 }

@@ -12,10 +12,13 @@
 
     <meta content="width=device-width, target-densityDpi=device-dpi" name="viewport" />
     <link type="text/css" rel="stylesheet" href="/static/default/css/style.css" media="all"/>
+    <link type="text/css" rel="stylesheet" href="/static/default/css/more_style.css" media="all"/>
 
     <script type="text/javascript" src="/static/default/js/jquery.min.js"></script>
     <script type="text/javascript" src="/static/default/js/script.js"></script>
     <?=$this->headScript()?>
+
+    <script type="text/javascript" src="//vk.com/js/api/openapi.js?112"></script>
 </head>
 <body>
     <div id="wrapper">
@@ -47,27 +50,8 @@
                         </div>
                         <!--/noindex-->
                     <? endif; ?>
-                    <div class="pin-article">
-                        <div class="article">
-                            <div class="title">Archives</div>
-                            <ul>
-                                <li><a href="#">December 2013</a></li>
-                                <li><a href="#">September 2013</a></li>
-                                <li><a href="#">August 2013</a></li>
-                                <li><a href="#">May 2013</a></li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="pin-article">
-                        <div class="article">
-                            <div class="title">Recent comments</div>
-                            <ul>
-                                <li>alexvtn on <a href="#">Video Post</a></li>
-                                <li>alexvtn on <a href="#">Video Post</a></li>
-                            </ul>
-                        </div>
-                    </div>
+                    <?=$this->ShowLastPost(isset($this->currentPost)?$this->currentPost:false);?>
+                    <?=$this->ShowSocial();?>
                 </div>
                 <div class="clr"></div>
             </div>
@@ -84,6 +68,7 @@
             (w[c] = w[c] || []).push(function() {
                 try {
                     w.yaCounter24749843 = new Ya.Metrika({id:24749843,
+                        webvisor:true,
                         clickmap:true,
                         trackLinks:true,
                         accurateTrackBounce:true});

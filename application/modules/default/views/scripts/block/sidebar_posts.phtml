@@ -1,0 +1,17 @@
+<!--noindex-->
+    <div class="pin-article last_posts">
+        <div class="article">
+            <div class="title">Последние</div>
+            <ul>
+                <? foreach ($this->posts->data as $post): ?>
+                    <? if ($this->current && $this->current->getId() == $post->getId()) continue; ?>
+                    <? $content = $post->getContent()->getFields();?>
+                    <li>
+                        <img src="<?=$post->getMainPhoto()->getPhotoImage();?>"/>
+                        <a rel="nofollow" href="<?=$post->getRoute()->getUrl();?>"><?=$content['name']->getFieldText();?></a>
+                    </li>
+                <? endforeach; ?>
+            </ul>
+        </div>
+    </div>
+<!--/noindex-->
