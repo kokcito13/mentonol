@@ -1,0 +1,79 @@
+<? $this->headScript()->captureStart() ?>
+<? $this->headScript()->captureEnd() ?>
+<div class="left-sidebar">
+    <div class="open-post pin-article">
+        <div class="article">
+            <h1 class="title">Карта сайта</h1>
+            <div class="line">
+                <div class="entry-info">
+                    <div class="entry-date">
+                        <a href="/">
+                            <img src="/static/default/images/home_w.png" width="15px;"/>
+                        </a>
+                        <span class="sep">/</span>
+                    </div>
+                    <div class="entry-standard">
+                        <span>...</span>
+                    </div>
+                </div>
+                <br/>
+                <ul>
+                    <? foreach ($this->items as $item): ?>
+                        <? $content = $item['item']->getContent()->getFields(); ?>
+                        <li>
+                            <a href="<?=$item['item']->getRoute()->getUrl();?>"><?=$content['name']->getFieldText();?></a>
+                            <div class="lvl2_ul">
+                                <? if (!empty($item['items'])): ?>
+                                    Посты:
+                                    <br/>
+                                    <ul class="lvl2_ul">
+                                        <? foreach ($item['items'] as $post): ?>
+                                            <? $postContent = $post->getContent()->getFields();  ?>
+                                            <li>
+                                                <a href="<?=$post->getRoute()->getUrl();?>"><?=$postContent['name']->getFieldText();?></a>
+                                            </li>
+                                        <? endforeach; ?>
+                                    </ul>
+                                <? endif; ?>
+                                <? if (!empty($item['childrens'])): ?>
+                                    <ul>
+                                        <? foreach ($item['childrens'] as $cat2): ?>
+                                            <? $cat2Content = $cat2['item']->getContent()->getFields();  ?>
+                                            <li>
+                                                <a href="<?=$cat2['item']->getRoute()->getUrl();?>"><?=$cat2Content['name']->getFieldText();?></a>
+                                                <div class="lvl2_ul">
+                                                    <? if (!empty($cat2['items'])): ?>
+                                                        Посты:
+                                                        <br/>
+                                                        <ul class="lvl2_ul">
+                                                            <? foreach ($cat2['items'] as $post2): ?>
+                                                                <? $post2Content = $post2->getContent()->getFields();  ?>
+                                                                <li>
+                                                                    <a href="<?=$post2->getRoute()->getUrl();?>"><?=$post2Content['name']->getFieldText();?></a>
+                                                                </li>
+                                                            <? endforeach; ?>
+                                                        </ul>
+                                                    <? endif; ?>
+                                                    <? if (!empty($cat2['childrens'])): ?>
+                                                        <ul>
+                                                            <? foreach ($cat2['childrens'] as $cat3): ?>
+                                                                <? $cat3Content = $cat3['item']->getContent()->getFields();  ?>
+                                                                <li>
+                                                                    <a href="<?=$cat3['item']->getRoute()->getUrl();?>"><?=$cat3Content['name']->getFieldText();?></a>
+                                                                </li>
+                                                            <? endforeach; ?>
+                                                        </ul>
+                                                    <? endif; ?>
+                                                </div>
+                                            </li>
+                                        <? endforeach; ?>
+                                    </ul>
+                                <? endif; ?>
+                            </div>
+                        </li>
+                    <? endforeach; ?>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

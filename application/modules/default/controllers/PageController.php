@@ -36,4 +36,56 @@ class PageController extends Zend_Controller_Action
 
         echo $this->view->navigation()->sitemap($container);
     }
+
+    public function sitemapAction()
+    {
+        $arr = array();
+        $this->view->categories = Application_Model_Kernel_Category::getMainCategoryList()->data;
+        $i = 0;
+        foreach ($this->view->categories as $mainCat) {
+            $arr[$i]['item'] = $mainCat;
+            $arr[$i]['items'] = $this->getItemsByCategory($mainCat);
+            $children = $mainCat->getChildren()->data;
+            $j = 0;
+            foreach ($children as $cat2) {
+                $arr[$i]['childrens'][$j]['item'] = $cat2;
+                $arr[$i]['childrens'][$j]['items'] = $this->getItemsByCategory($cat2);
+                $children2 = $cat2->getChildren()->data;
+
+                $y = 0;
+                foreach ($children2 as $cat3) {
+                    $arr[$i]['childrens'][$j]['childrens'][$y]['item'] = $cat3;
+                    $arr[$i]['childrens'][$j]['childrens'][$y]['items'] = $this->getItemsByCategory($cat3);
+                    $y++;
+                }
+                $j++;
+            }
+
+            $i++;
+        }
+
+        $this->view->items = $arr;
+
+        $this->view->title = "Карта сайта";
+        $this->view->keywords = "Карта сайта";
+        $this->view->description = "Карта сайта";
+    }
+
+    function getItemsByCategory($category)
+    {
+        $whereText = 'post.category_id = '.$category->getId().' AND post.category_id2 IS NULL AND post.category_id3 IS NULL ';
+        if ($category->getCurrentLevel() > 1) {
+            $whereText = 'post.category_id2 = '.$category->getId().' AND post.category_id3 IS NULL ';
+            if ($category->getCurrentLevel() > 2) {
+                $whereText = 'post.category_id3 = '.$category->getId();
+            }
+        }
+
+        $arr = Application_Model_Kernel_Post::getList('post.id', 'DESC', true,
+                                                                    true, false, false,
+                                                                    true, true, 10,
+                                                                    true, $whereText)->data;
+
+        return $arr;
+    }
 }
