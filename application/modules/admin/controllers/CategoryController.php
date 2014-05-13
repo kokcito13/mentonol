@@ -122,23 +122,21 @@ class Admin_CategoryController extends Zend_Controller_Action
         $this->view->headTitle()->append('Редактировать');
     }
 
-//    public function statuschangeAction()
-//    {
-//        $this->_helper->viewRenderer->setNoRender();
-//        $this->_helper->layout()->disableLayout();
-//        if ($this->getRequest()->isPost()) {
-//            $data = (object)$this->getRequest()->getPost();
-//
-//            $this->view->project = Application_Model_Kernel_Product::getById((int)$data->idProduct);
-//            if ($this->view->project->getProductStatusPopular() != 2)
-//                $this->view->project->setProductStatusPopular(2);
-//            else
-//                $this->view->project->setProductStatusPopular(1);
-//            $this->view->project->save();
-//            echo 1;
-//            exit();
-//        }
-//        echo 0;
-//        exit();
-//    }
+    public function statusAction()
+    {
+        $this->_helper->viewRenderer->setNoRender();
+        $this->_helper->layout()->disableLayout();
+        if ($this->getRequest()->isPost()){
+            $data = (object)$this->getRequest()->getPost();
+
+            $this->view->category = Application_Model_Kernel_Category::getByIdPage((int)$data->id);
+            if ($data->type == 2) {
+                $this->view->category->delete();
+            }
+            echo 0;
+            exit();
+        }
+        echo 1;
+        exit();
+    }
 }

@@ -247,6 +247,10 @@ class Application_Model_Kernel_Category extends Application_Model_Kernel_Page
         $db = Zend_Registry::get('db');
         $db->delete(self::_tableName, self::_tableName . ".idPage = {$this->_idPage}");
         $this->deletePage();
+
+        foreach ($this->getChildren()->data as $child) {
+            $child->delete();
+        }
     }
 
     public static function changePosition($idPage, $position)
