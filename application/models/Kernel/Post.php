@@ -14,7 +14,9 @@ class Application_Model_Kernel_Post extends Application_Model_Kernel_Page
     private $currentCategory = null;
 
     const _tableName = 'post';
+
     const ITEM_ON_PAGE = 3;
+    const ITEM_ON_MAIN_PAGE = 8;
 
     public function __construct(
         $id,

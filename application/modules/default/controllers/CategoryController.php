@@ -15,7 +15,7 @@ class CategoryController extends Zend_Controller_Action
 
         $this->view->posts = Application_Model_Kernel_Post::getList('post.id', 'DESC', true,
                                                                     true, false, false,
-                                                                    true, true, 10,
+                                                                    true, true, Application_Model_Kernel_Post::ITEM_ON_MAIN_PAGE,
                                                                     true, 'post.category_id'.$lvlText.' = '.$this->view->page->getId());
 
         $title       = trim($this->view->contentPage['title']->getFieldText());

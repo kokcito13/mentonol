@@ -21,7 +21,7 @@ class IndexController extends Zend_Controller_Action
 
         $this->view->posts = Application_Model_Kernel_Post::getList('post.id', 'DESC', true,
                                                                     true, false, false,
-                                                                    false, false, 3,
+                                                                    false, false, Application_Model_Kernel_Post::ITEM_ON_MAIN_PAGE,
                                                                     true, 'category_id != 0');
 
         $title       = trim($this->view->contentPage['title']->getFieldText());
